@@ -59,32 +59,81 @@ int main() {
     int tonglientiep  = 0;
 
     int soluonglientiep = 0;
-
+    // so am - string
+    int chuoiam  = 0;
+    int dmax = 0;
+    int d = 1;
+    int cache_soamcong;
+    int total_soamcong;
+    
+    /// bien 15 + 16
+    int dcong = 1;
+    int value_cong = 0;
+    int cache_soduongcong;
+    /// end
     for(int i=1;i<=n;i++)
     {
-
-        if(A[i+1] == A[i]+1)
+        /// bai 15 + 16
+        
+        if(A[i] >0)
         {
-
-            soduonglientiep+=1;
-
-            if(A[i]+A[i+1] >tonglientiep)
+            if(cache_soduongcong == NUlL)
             {
-
-                tonglientiep = A[i]+A[i+1];
-
-                soluonglientiep = 1;
-
+                cache_soduongcong = A[i];
             }
-            if(A[i]+A[i+1] >tonglientiep)
-
+            if(A[i]+1 >0)
             {
+                
+                dcong+=1;
+            }
+            else
+            {
+                if(value_cong < dcong)
+                {
+                    value_cong = dcong;
+                }
+                dcong = 1;
+            }
+        }
+        
+        /// bai 17 + 18 
+        if(A[i] < 0)
+        {
+            if(cache_soamcong == NULL)
+            {
+                cache_soamcong = A[i];
+            }
+            if(A[i+1] < 0)
+            {
+                d+=1;
+                cache_soamcong+= A[i+1];
+            }
+            else
+            {
+                if(total_soamcong == NULL)
+                {
+                    total_soamcong = cache_soamcong;
+                }
+                /// dut chuoi....
+                if(total_soamcong < cache_soamcong)
+                {
+                    total_soamcong = cache_soamcong;
+                }
+                cout << "\n" <<cache_soamcong ;
+                cache_soamcong = 0;
+                if(dmax < d)
+                {
+                    dmax = d;
+                }
 
-                soluonglientiep+= 1;
-
+                d=1;
             }
 
         }
+        
+        //end 
+
+
 
         sall+=A[i]; // tổng
 
@@ -191,8 +240,6 @@ int main() {
         nhỏ nhất : 1
         nhỏ nhì : ?
         lớn nhất : 5;
-
-
         */
 
         if(sonhothunhi > A[i] && A[i] > sonhonhat && A[i] < solonnhat) sonhothunhi = A[i];
@@ -236,6 +283,8 @@ int main() {
     cout << "\n so duong lien tiep=" << soduonglientiep  ;
 
     cout << "\n so luong lien co tong tiep la" << soluonglientiep << "co tong =" << tonglientiep;
+
+        cout << "\n Chuoi am" << dmax << "tong lon nhat" << total_soamcong;
 
 
 
