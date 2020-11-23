@@ -65,29 +65,109 @@ int main() {
     int d = 1;
     int cache_soamcong;
     int total_soamcong;
-    
+    int total_soduongcong;
     /// bien 15 + 16
     int dcong = 1;
     int value_cong = 0;
     int cache_soduongcong;
     /// end
+    int log_dansen = 1;
+    int dansen = 0;
+
+    int log_khongtang = 1;
+    int khongtang = 0;
+
+    int log_giam = 1;
+    int giam = 0;
+
+    int log_tang = 1;
+    int tang = 0;
     for(int i=1;i<=n;i++)
     {
+        /// so luong cac phan tu tang nhieu nhat
+        if(A[i] < A[i+1]) // Ai phai nho hon Ai+1
+        {
+            log_tang+=1;
+        }
+        else // mat chuoi
+        {
+            if(tang < log_tang && log_tang >1)
+            {
+                tang = log_tang;
+            }
+            log_tang = 1;
+        }
+        /// END
+        /// so luong cac phan tu giam nhieu nhat
+        if(A[i] > A[i+1]) // Ai phai lon hon Ai+1
+        {
+            log_giam+=1; // set log
+        }
+        else // dut chuoi
+        {
+            if(log_giam > giam && log_giam >1) // neu log lon hon output
+            {
+                giam = log_giam;
+            }
+            log_giam = 1; // set max dinh;
+        }
+        //end
+        //// doan khong tang (A = A[+1]
+        if(A[i] == A[i+1]) // neu Ai = Ai+1
+        {
+            log_khongtang+=1;
+        }
+        else // dut chuoi
+        {
+            if(khongtang < log_khongtang && log_khongtang >1)
+            {
+                khongtang= log_khongtang;
+            }
+            log_khongtang = 1;
+        }
+
+        ///doan dan xen nhau
+        if(A[i] < 0 && A[i+1] >0 || A[i] >0 && A[i+1] <0) // Neu A hien tai am va A+1 duong hoac A hien tai duong va A+1 am
+        {
+            log_dansen+=1;
+        }
+        else // neu khong ton tai se mat chuoi
+        {
+            if(dansen < log_dansen && log_dansen >1)
+            {
+                dansen = log_dansen;
+            }
+            log_dansen=1;
+        }
+        /// END
+
         /// bai 15 + 16
-        
+
         if(A[i] >0)
         {
-            if(cache_soduongcong == NUlL)
+            if(cache_soduongcong == NULL)
             {
                 cache_soduongcong = A[i];
             }
-            if(A[i]+1 >0)
+            if(A[i+1] >0)
             {
-                
+                cache_soduongcong+= A[i+1];
                 dcong+=1;
             }
             else
             {
+                if(total_soduongcong == NULL)
+                {
+                    total_soduongcong = cache_soduongcong;
+                }
+                else
+                {
+                    if(total_soduongcong < cache_soduongcong)
+                    {
+                        total_soduongcong = cache_soduongcong;
+                    }
+                }
+                cache_soduongcong = NULL;
                 if(value_cong < dcong)
                 {
                     value_cong = dcong;
@@ -95,8 +175,8 @@ int main() {
                 dcong = 1;
             }
         }
-        
-        /// bai 17 + 18 
+
+        /// bai 17 + 18
         if(A[i] < 0)
         {
             if(cache_soamcong == NULL)
@@ -119,8 +199,7 @@ int main() {
                 {
                     total_soamcong = cache_soamcong;
                 }
-                cout << "\n" <<cache_soamcong ;
-                cache_soamcong = 0;
+                cache_soamcong = NULL;
                 if(dmax < d)
                 {
                     dmax = d;
@@ -130,8 +209,8 @@ int main() {
             }
 
         }
-        
-        //end 
+
+        //end
 
 
 
@@ -284,10 +363,13 @@ int main() {
 
     cout << "\n so luong lien co tong tiep la" << soluonglientiep << "co tong =" << tonglientiep;
 
-        cout << "\n Chuoi am" << dmax << "tong lon nhat" << total_soamcong;
+    cout << "\n Chuoi am" << dmax << "tong lon nhat" << total_soamcong;
 
-
-
+    cout << "\n doan duong dai nhat" << value_cong << "co tong =" << total_soduongcong;
+    cout << "\n so luong dan sen" << dansen;
+    cout << "\n so luong cac phan tu khong tang nhieu nhat" << khongtang;
+    cout << "\n so luong cac phan tu giam nhieu nhat" << giam;
+    cout << "\n so luong cac phan tu tang nhieu nhat" << tang;
 
 
 
