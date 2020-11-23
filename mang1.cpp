@@ -82,9 +82,26 @@ int main() {
 
     int log_tang = 1;
     int tang = 0;
+    int t[n] = {};
+    int log_day = 0;
     for(int i=1;i<=n;i++)
     {
+
+        if(A[i] >=1)
+        {
+            log_day+=1;
+        }
+        else
+        {
+            log_day = 0;
+        }
+        t[i] = log_day;
+        cout << t[i];
+
+        // khoe bien doancon;
+        /// end
         /// so luong cac phan tu tang nhieu nhat
+        /*
         if(A[i] < A[i+1]) // Ai phai nho hon Ai+1
         {
             log_tang+=1;
@@ -294,7 +311,7 @@ int main() {
             }
 
         }
-
+*/
     }
 
     ///for dành cho số lớn thứ nhì
@@ -324,8 +341,71 @@ int main() {
         if(sonhothunhi > A[i] && A[i] > sonhonhat && A[i] < solonnhat) sonhothunhi = A[i];
 
     }
+     /// day con
+     int doan = 0;
+     int start = 0;
+     int close = 0;
+     int conlonnhat = 0;
+     int demcon = 0;
+
+     int tong_daycon = 0;
+     int socong = 0;
+     int log_tong = 0;
+     int tong = 0;
+     int demcapsocong = 0;
+    for(int i=1;i<=n;i++)
+    {
+        if(t[i] == 1)
+        {
+            doan+=1;
+            start = i;
+            cout << "\ndoan " << doan << " ";
+        }
+        if(t[i] >=1)
+        {
+            cout << A[i] << ":";
+            demcon+=1;
 
 
+        }
+
+        if(t[i] == 0 || i == n && demcon >=3)
+        {
+            int abc = NULL;
+            for(int j = start;j<=i-1;j++)
+            {
+                if(abc == NULL)
+                {
+                    abc = abs(A[j]-A[j+1]); // gọi ra cấp số cộng vd 5- 2 => cs cong 3)
+                }
+                if(abs(A[j] - A[j+1]) == abc) /// neu tri tuyet doiaj - aj+1 =  abc
+                {
+                    log_tong+= A[j];
+                    demcapsocong+=1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if(log_tong > tong)
+            {
+                tong = log_tong;
+            }
+
+        }
+
+        if(demcon > conlonnhat) conlonnhat = demcon;
+        if(t[i] == 0)
+        {
+
+            tong_daycon = 0;
+            close = i-1;
+
+        }
+    }
+
+    cout << tong;
     // show
     cout << "\n S duong=" << s_duong << " so duong la :" << count_duong;
 
